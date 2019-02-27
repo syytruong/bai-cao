@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="VueJs Blackjack">
+  <title>VueJS Test</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div id="app" class="container">
+            <div class="row header">
+                <div class="col-sm-12 text-center">
+                    <h1>Cào Rùa!</h1>
+                    <hr>
+                </div>
+            </div>
+            <div v-if="!roundStarted" class="row start-game">
+                    <div class="col-sm-12 pagination-centered text-center">
+                        <button class="btn" @click="startGame">Start</button>
+                    </div>
+            </div>
+            
+            <div v-else class='row game-container'>
+                <div class="col-sm-12">
+                        <div class="row">
+                                <div class="col-sm-9">
+                                  <h3>Game</h3>
+                                  <table class="table">
+                                    <tr>
+                                      <td><strong>Your Score</strong>: {{ cardSum(cards.you) }}</td>
+                                      <td><strong>Player1 Score</strong>: {{ cardSum(cards.player1) }}</td>
+                                      <td><strong>Player2 Score</strong>: {{ cardSum(cards.player2) }}</td>
+                                      <td><strong>Player3 Score</strong>: {{ cardSum(cards.player3) }}</td>
+                                      <td class="text-center">
+                                        <span v-if="roundOver">
+                                                <button class="btn btn-primary" @click="restartGame">Play Again!</button>
+                                        </span>
+                                        <span v-else>
+                                          <div v-if="cards.you.length === 0">
+                                                <button class="btn btn-primary" @click="drawCards">Draw</button>
+                                                <button class="btn btn-primary" @click="shuffleCard">Shuffle</button>
+                                          </div>
+                                          <div v-else>
+                                                <button class="btn" @click="endGame">Reveal</button>
+                                          </div>
+                                        </span>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td colspan="3" class="text-center" style="border-top: none;">
+                                        <div v-if="roundOver">
+                                          <h3>Winner: {{ lastWinner }}</h3>
+                                        </div>
+                                      </td>
+                                    </tr>
+                                  </table>
+                                </div>
+
+                                <div class="col-sm-3">
+                                        <h3>Leaderboard</h3>
+                                        <table class="table">
+                                          <tbody>
+                                            <tr>
+                                              <td><strong>You:</strong> {{gold.you }}</td>
+                                              <td><strong>Player1:</strong> {{gold.player1 }}</td>
+                                              <td><strong>Player2:</strong> {{gold.player2 }}</td>
+                                              <td><strong>Player3:</strong> {{gold.player3 }}</td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                      </div><!-- .col.game.score -->
+                        
+                        </div>
+                </div>
+            </div>
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.js"></script>
+    <script src="https://code.jquery.com/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="./app.js"></script>
+</body>
+</html>
